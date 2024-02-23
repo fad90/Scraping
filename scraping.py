@@ -11,23 +11,33 @@ soup = BeautifulSoup(src, "lxml")
 # print(title.text)
 # print(title.string)
 
-# page_h1 = soup.find("h1")
-# print(page_h1)
-#
-# page_all_h1 = soup.find_all("h1")
-# print(page_all_h1)
-#
-# for item in page_all_h1:
-#     print(item.text)
+page_h1 = soup.find("h1")
+print(page_h1)
 
-# first_tour = soup.find("h3", class_="first_tour")
-# print(first_tour.text)
+page_all_h1 = soup.find_all("h1")
+print(page_all_h1)
 
-# social_links = soup.find(class_="social_networks").find("ul").find_all("a")
-# print(social_links)
+for item in page_all_h1:
+    print(item.text)
 
-# all_a = soup.find_all("a")
-# for item in all_a:
-#     item_text = item.text
-#     item_url = item.get("href")
-#     print(f"{item_text}: {item_url}")
+first_tour = soup.find("h3", class_="first_tour")
+print(first_tour.text)
+
+social_links = soup.find(class_="social_networks").find("ul").find_all("a")
+print(social_links)
+
+all_a = soup.find_all("a")
+for item in all_a:
+    item_text = item.text
+    item_url = item.get("href")
+    print(f"{item_text}: {item_url}")
+
+
+tour_description = soup.find(class_="tour_description").find_parent()
+print(tour_description)
+
+tour_description = soup.find(class_="tour_description").find_parent("div", "services")
+print(tour_description)
+
+tour_description = soup.find(class_="tour_description").find_parents()
+print(tour_description)
