@@ -1,15 +1,17 @@
+import re
+
 from bs4 import BeautifulSoup
 
 with open("main.html") as file:
     src = file.read()
-# print(src)
+print(src)
 
 soup = BeautifulSoup(src, "lxml")
 
-# title = soup.title
-# print(title)
-# print(title.text)
-# print(title.string)
+title = soup.title
+print(title)
+print(title.text)
+print(title.string)
 
 page_h1 = soup.find("h1")
 print(page_h1)
@@ -41,3 +43,43 @@ print(tour_description)
 
 tour_description = soup.find(class_="tour_description").find_parents()
 print(tour_description)
+
+
+next_el = soup.find(class_="service").next_element.next_element
+print(next_el)
+
+next_el = soup.find(class_="first_link").find_next().text
+print(next_el)
+
+prev_el = soup.find(id="section1").previous_element.previous_element
+print(prev_el)
+
+prev_el = soup.find(id="section1").find_previous()
+print(prev_el)
+
+next_sib = soup.find(class_="first_link").find_next_sibling()
+print(next_sib)
+
+prev_sib = soup.find(class_="second_link").find_previous_sibling()
+print(prev_sib)
+
+link_text = soup.find(class_="second_link").find_previous_sibling().find_next().text
+print(link_text)
+
+links = soup.find(class_="social_networks").find_all("a")
+
+for item in links:
+    link_href_atr = item.get("href")
+    link_href_atr1 = item["href"]
+
+    link_data_atr = item.get("data-attr")
+    link_data_atr1 = item["data-attr"]
+
+    print(link_href_atr1)
+    print(link_data_atr1)
+
+find_a_by_text = soup.find("a", string="Twitter")
+print(find_a_by_text)
+
+find_a_by_text = soup.find_all(string=re.compile("([Aa]gency)"))
+print(find_a_by_text)
